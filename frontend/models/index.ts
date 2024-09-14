@@ -16,7 +16,7 @@ export type AuthToken = {
     user: AuthUser;
 };
 
-export type AuthContext = {
+export type AuthContextType = {
     authState: AuthToken;
     setAuthState: (token: AuthToken) => void;
     isAuthenticated: () => boolean;
@@ -37,6 +37,7 @@ export type SignUpForm = {
 
 // Itinerary Type
 export type TravelItinerary = {
+    [x: string]: any;
     id: string;
     budget: string;
     duration: number; // Duration in days

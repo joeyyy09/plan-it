@@ -11,7 +11,7 @@ import { LuUser2, LuLogOut } from "react-icons/lu";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
 export const Navbar = () => {
-  const { authState: user } = useAuth();
+  const { authState } = useAuth();
   const router = useRouter();
   const [showProfile, setShowProfile] = useState(false);
 
@@ -56,7 +56,7 @@ export const Navbar = () => {
             <Link href="/create-trip" className="hover:text-gray-300 transition-colors text-lg font-medium">
               Create Trip
             </Link>
-            {user && (
+            {authState.token && (
               <Link href="/my-trips" className="hover:text-gray-300 transition-colors text-lg font-medium">
                 My Trips
               </Link>
@@ -64,7 +64,7 @@ export const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center space-x-4">
-          {user.token ? (
+          {authState.token ? (
             <div className="relative">
               <Button
                 variant="ghost"
@@ -72,7 +72,7 @@ export const Navbar = () => {
                 onClick={() => setShowProfile(!showProfile)}
               >
                 <LuUser2 className="h-5 w-5" />
-                <span>{user.data.name}</span>
+                <span>{authState.user?.name}</span>
                 {showProfile ? <FaCaretUp className="h-4 w-4" /> : <FaCaretDown className="h-4 w-4" />}
               </Button>
               {showProfile && (
@@ -129,9 +129,9 @@ export const Navbar = () => {
                 <p className="font-semibold text-xl">PlanIT</p>
               </div>
               <div className="mt-auto">
-                {user.token ? (
+                {authState.token ? (
                   <div className="border-t border-gray-700 pt-4">
-                    <p className="text-sm mb-2">{user.data.name}</p>
+                    <p className="text-sm mb-2">{authState.user?.name}</p>
                     <button
                       onClick={handleLogout}
                       className="flex items-center space-x-2 text-red-500 hover:text-red-400"

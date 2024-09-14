@@ -11,7 +11,7 @@ import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { toast } from "sonner";
 
-export const TravelersList = [
+const TravelersList = [
     {
         id: 1,
         title: "Adventure Seeker",
@@ -57,7 +57,7 @@ export const TravelersList = [
 ];
 
 
-export const BudgetList = [
+const BudgetList = [
     {
         id: 1,
         title: "Economical",
@@ -76,7 +76,7 @@ export const BudgetList = [
 ];
 
 
-export const AI_PROMPT = `
+const AI_PROMPT = `
 Create a comprehensive travel plan with the following specifications:
 
 **Destination**: {location}

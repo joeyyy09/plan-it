@@ -23,7 +23,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Component() {
   const router = useRouter();
-  const { setUserAuthInfo } = useAuth();
+  const { setAuthState } = useAuth();
   const [user, setUser] = useState<SignUpForm>({
     name: "",
     email: "",
@@ -65,7 +65,7 @@ export default function Component() {
         setLoading(false);
         return;
       }
-      setUserAuthInfo(result.data);
+      setAuthState(result.data);
       toast.success(result.data.message);
       router.push("/");
     } catch (error: any) {

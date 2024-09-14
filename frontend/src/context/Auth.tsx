@@ -7,7 +7,7 @@ import {
   createContext,
   ReactNode,
 } from "react";
-import { UserCredential, AuthContextType } from "@/types";
+import { AuthContextType, AuthToken } from "@/models"; // Adjust the import to your types
 
 const AuthContext = createContext<AuthContextType | null>(null);
 const { Provider } = AuthContext;
@@ -21,10 +21,10 @@ const useAuth = (): AuthContextType => {
 };
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [authState, setAuthState] = useState<UserCredential>({
+  const [authState, setAuthState] = useState<AuthToken>({
     token: "",
-    data: {
-      user_id: "",
+    user: {
+      id: "",
       name: "",
       email: "",
     },
@@ -34,22 +34,22 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     const data = { ...user };
-    setAuthState({ token: token || "", data });
+    setAuthState({ token: token || "", user: data });
   }, []);
 
-  const setUserAuthInfo = (data: UserCredential) => {
-    const userData: UserCredential = {
-      token: data.token || authState.token,
-      data: data.data || authState.data,
+  const setAuthStateHandler = (token: AuthToken) => {
+    const userData: AuthToken = {
+      token: token.token || authState.token,
+      user: token.user || authState.user,
     };
 
     localStorage.setItem("token", userData.token);
-    localStorage.setItem("user", JSON.stringify(userData.data));
+    localStorage.setItem("user", JSON.stringify(userData.user));
 
     setAuthState(userData);
   };
 
-  const isUserAuthenticated = () => {
+  const isAuthenticated = () => {
     return !!authState.token;
   };
 
@@ -57,8 +57,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     <Provider
       value={{
         authState,
-        setUserAuthInfo,
-        isUserAuthenticated,
+        setAuthState: setAuthStateHandler,
+        isAuthenticated,
       }}
     >
       {children}

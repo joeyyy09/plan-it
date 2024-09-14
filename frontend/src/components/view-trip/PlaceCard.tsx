@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { Place } from "@/types";
+import { TravelPlace } from "@/models";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import TravelImage from "@/public/travel.jpg";
+import TravelImage from "@/public/image1.png";
 import { Button } from "../ui/button";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import Link from "next/link";
@@ -11,7 +11,7 @@ import { PHOTO_REF_URL, PlaceDetails } from "@/src/service/GlobalAPI";
 import { Skeleton } from "../ui/skeleton"; // Assume you have a Skeleton component for loading
 import { useRouter } from "next/navigation";
 
-const PlaceCard = ({ place }: { place: Place }) => {
+const PlaceCard = ({ place }: { place: TravelPlace }) => {
   const [photo, setPhoto] = useState("");
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -19,7 +19,7 @@ const PlaceCard = ({ place }: { place: Place }) => {
   const getPlacePhoto = async () => {
     try {
       const data = {
-        textQuery: place?.placeName,
+        textQuery: place?.name,
       };
 
       const response = await PlaceDetails(data);
@@ -57,14 +57,14 @@ const PlaceCard = ({ place }: { place: Place }) => {
       )}
       <div className="space-y-2">
         <h2 className="font-bold text-sm lg:text-lg md:text-md">
-          {place.placeName}
+          {place.name}
         </h2>
-        <p className="text-sm text-gray-400">{place?.placeDetails}</p>
-        <p>⌛{place?.timeToTravel}</p>
+        <p className="text-sm text-gray-400">{place?.details}</p>
+        <p>⌛{place?.bestVisitTime}</p>
         <Button
           onClick={() =>
             window.open(
-              `https://google.com/maps/search/?api=1&query=${place?.placeName}`,
+              `https://google.com/maps/search/?api=1&query=${place?.name}`,
               "_blank"
             )
           }

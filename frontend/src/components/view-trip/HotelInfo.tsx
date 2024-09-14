@@ -1,10 +1,10 @@
 "use client";
 
-import { Itinerary } from "@/types";
+import { TravelItinerary } from "@/models";
 import React from "react";
 import HotelCard from "./HotelCard";
 
-const HotelInfo = ({ itinerary }: { itinerary: Itinerary }) => {
+const HotelInfo = ({ itinerary }: { itinerary: TravelItinerary }) => {
   return (
     <div>
       <h2 className="font-bold md:text-xl  text-lg mt-5 pb-2">
