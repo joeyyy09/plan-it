@@ -10,7 +10,7 @@ import { FaMapMarkedAlt } from "react-icons/fa";
 import Link from "next/link";
 import { PHOTO_REF_URL, PlaceDetails } from "@/src/service/GlobalAPI";
 import { useRouter } from "next/navigation";
-import { Skeleton } from "../ui/skeleton"; // Assume you have a Skeleton component for loading
+import { Skeleton } from "../ui/skeleton"; 
 
 const HotelCard = ({ hotel }: { hotel: HotelDetails }) => {
   const [photo, setPhoto] = useState("");

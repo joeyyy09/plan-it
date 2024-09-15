@@ -1,20 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
+
 import { TravelPlace } from "@/models";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import TravelImage from "@/public/image1.png";
 import { Button } from "../ui/button";
 import { FaMapMarkedAlt } from "react-icons/fa";
-import Link from "next/link";
 import { PHOTO_REF_URL, PlaceDetails } from "@/src/service/GlobalAPI";
-import { Skeleton } from "../ui/skeleton"; // Assume you have a Skeleton component for loading
-import { useRouter } from "next/navigation";
+import { Skeleton } from "../ui/skeleton";
 
 const PlaceCard = ({ place }: { place: TravelPlace }) => {
-  const [photo, setPhoto] = useState("");
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  const [photo, setPhoto] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getPlacePhoto = async () => {
     try {
@@ -25,7 +22,7 @@ const PlaceCard = ({ place }: { place: TravelPlace }) => {
       const response = await PlaceDetails(data);
       const photoUrl = PHOTO_REF_URL.replace(
         "{NAME}",
-        response.data.places[0].photos[3].name
+        response.data.places[0]?.photos[3]?.name || ""
       );
       setPhoto(photoUrl);
     } catch (error) {
@@ -40,37 +37,44 @@ const PlaceCard = ({ place }: { place: TravelPlace }) => {
   }, [place]);
 
   return (
-    <div className="border rounded-xl p-3 mt-2 shadow-md md:flex-row flex flex-col gap-x-4 hover:scale-105 transition-all cursor-pointer">
-      {loading ? (
-        <Skeleton className="h-[150px] w-[300px] rounded-xl" />
-      ) : (
-        <Image
-          src={photo ? photo : TravelImage}
-          alt="travel"
-          height={200}
-          width={300}
-          quality={100}
-          layout="fixed"
-          className="h-[150px] object-cover rounded-xl"
-          loading="lazy"
-        />
-      )}
-      <div className="space-y-2">
-        <h2 className="font-bold text-sm lg:text-lg md:text-md">
+    <div className="border border-gray-700 rounded-lg bg-gray-800 p-4 mt-4 shadow-lg transition-transform transform hover:scale-105 cursor-pointer">
+      <div className="relative">
+        {loading ? (
+          <Skeleton className="h-[200px] w-full rounded-lg" />
+        ) : (
+          <Image
+            src={photo || TravelImage}
+            alt={place.name || "Travel"}
+            height={200}
+            width={300}
+            quality={100}
+            layout="responsive"
+            className="object-cover rounded-lg"
+            loading="lazy"
+          />
+        )}
+      </div>
+      <div className="mt-4 space-y-3">
+        <h2 className="text-lg font-semibold text-white">
           {place.name}
         </h2>
-        <p className="text-sm text-gray-400">{place?.details}</p>
-        <p>⌛{place?.bestVisitTime}</p>
+        <p className="text-sm text-gray-400">
+          {place.details}
+        </p>
+        <p className="text-sm text-gray-300">
+          ⌛ {place.bestVisitTime}
+        </p>
         <Button
           onClick={() =>
             window.open(
-              `https://google.com/maps/search/?api=1&query=${place?.name}`,
+              `https://google.com/maps/search/?api=1&query=${encodeURIComponent(place.name)}`,
               "_blank"
             )
           }
-          className="w-full md:w-0"
+          className="w-full flex items-center justify-center bg-gray-700 text-white hover:bg-gray-600"
         >
-          <FaMapMarkedAlt className="h-7 w-7 p-1" />
+          <FaMapMarkedAlt className="h-6 w-6 mr-2" />
+          <span className="hidden md:inline">View on Map</span>
         </Button>
       </div>
     </div>

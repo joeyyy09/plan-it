@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { toast } from "sonner";
+import { FaMapMarkerAlt, FaCalendarAlt, FaWallet, FaUsers } from "react-icons/fa";
 
 const TravelersList = [
     {
@@ -173,78 +174,120 @@ const CreateTrip = () => {
     // Optional: You can add some logic here if needed
   }, [formData]);
 
-  return (
-    <div className="p-4 md:p-0 md:max-w-[60%] w-full mx-auto mt-10">
-      <h2 className="font-semibold text-3xl">Tell us your travel preferences</h2>
-      <p className="mt-3 text-gray-500 text-xl">
-        Just provide some basic information, and our trip planner will generate a personalized itinerary based on your preferences.
-      </p>
-      <div className="mt-20 flex flex-col gap-10">
-        <div>
-          <h2 className="text-xl my-3 font-medium">What is the destination of your choice?</h2>
-          <GooglePlacesAutocomplete
-            apiKey={process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY || ""}
-            selectProps={{
-              value: place,
-              onChange: (v: any) => {
-                setPlace(v);
-                handleInputChange("location", v);
-              },
-            }}
-          />
-        </div>
-        <div>
-          <h2 className="text-xl my-3 font-medium">How many days are you planning to spend?</h2>
-          <Input
-            placeholder="Ex. 3"
-            type="number"
-            onChange={(e) => handleInputChange("noOfDays", e.target.value)}
-          />
-        </div>
-        <div>
-          <h2 className="text-xl my-3 font-medium">What is your budget?</h2>
-          <div className="grid md:grid-cols-3 sm:grid-cols-3 gap-5 mt-5">
-            {BudgetList.map((item, i) => (
-              <div
-                key={i}
-                onClick={() => handleInputChange("budget", item.title)}
-                className={`border cursor-pointer rounded-lg hover:shadow-lg p-4 ${
-                  formData?.budget === item.title ? "shadow-lg border-black" : ""
-                }`}
-              >
-                <h2 className="font-bold text-lg">{item.title}</h2>
-                <h2 className="text-sm text-gray-500">{item.desc}</h2>
-              </div>
-            ))}
+return (
+    <div className="min-h-screen bg-black text-white p-6">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl font-bold mb-2 text-white">Craft Your Journey</h1>
+        <p className="text-xl text-gray-300 mb-12">
+          Let our AI create a personalized itinerary based on your preferences.
+        </p>
+
+        <div className="space-y-12">
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+            <div className="flex items-center mb-4">
+              <FaMapMarkerAlt className="text-white mr-3 text-2xl" />
+              <h2 className="text-2xl font-semibold text-white">Destination</h2>
+            </div>
+            <GooglePlacesAutocomplete
+              apiKey={process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY || ""}
+              selectProps={{
+                value: place,
+                onChange: (v) => {
+                  setPlace(v);
+                  handleInputChange("location", v);
+                },
+                styles: {
+                  control: (provided) => ({
+                    ...provided,
+                    backgroundColor: '#1f1f1f',
+                    borderColor: '#333',
+                    color: 'white',
+                  }),
+                  input: (provided) => ({
+                    ...provided,
+                    color: 'white',
+                  }),
+                  option: (provided, state) => ({
+                    ...provided,
+                    backgroundColor: state.isFocused ? '#333' : '#1f1f1f',
+                    color: 'white',
+                  }),
+                },
+              }}
+            />
+          </div>
+
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+            <div className="flex items-center mb-4">
+              <FaCalendarAlt className="text-white mr-3 text-2xl" />
+              <h2 className="text-2xl font-semibold text-white">Duration</h2>
+            </div>
+            <Input
+              placeholder="Number of days"
+              type="number"
+              onChange={(e) => handleInputChange("noOfDays", e.target.value)}
+              className="bg-gray-700 border-gray-600 text-white focus:border-white focus:ring-white"
+            />
+          </div>
+
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+            <div className="flex items-center mb-4">
+              <FaWallet className="text-white mr-3 text-2xl" />
+              <h2 className="text-2xl font-semibold text-white">Budget</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {BudgetList.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => handleInputChange("budget", item.title)}
+                  className={`cursor-pointer rounded-lg p-4 transition-all ${
+                    formData?.budget === item.title
+                      ? "bg-white text-black border-2 border-white"
+                      : "bg-gray-700 hover:bg-gray-600"
+                  }`}
+                >
+                  <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+                  <p className="text-sm text-gray-300">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+            <div className="flex items-center mb-4">
+              <FaUsers className="text-white mr-3 text-2xl" />
+              <h2 className="text-2xl font-semibold text-white">Travel Group</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {TravelersList.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => handleInputChange("traveler", item.people)}
+                  className={`cursor-pointer rounded-lg p-4 transition-all ${
+                    formData?.traveler === item.people
+                      ? "bg-white text-black border-2 border-white"
+                      : "bg-gray-700 hover:bg-gray-600"
+                  }`}
+                >
+                  <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+                  <p className="text-sm text-gray-300">{item.desc}</p>
+                  <p className="text-xs text-gray-400 mt-2">For {item.people} people</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        <div>
-          <h2 className="text-xl my-3 font-medium">With whom are you planning to travel?</h2>
-          <div className="grid md:grid-cols-3 sm:grid-cols-3 gap-5 mt-5">
-            {TravelersList.map((item, i) => (
-              <div
-                key={i}
-                onClick={() => handleInputChange("traveler", item.people)}
-                className={`border cursor-pointer rounded-lg hover:shadow-lg p-4 ${
-                  formData?.traveler === item.people ? "shadow-lg border-black" : ""
-                }`}
-              >
-                <h2 className="font-bold text-lg">{item.title}</h2>
-                <h2 className="text-sm text-gray-500">{item.desc}</h2>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="flex justify-center">
+
+        <div className="mt-12 flex justify-center">
           <Button
             disabled={loading}
-            className="text-white"
+            className="bg-white hover:bg-gray-100 text-black px-8 py-3 text-lg rounded-full transition-all shadow-lg"
             onClick={onGenerateTrip}
           >
             {loading ? (
-              <AiOutlineLoading3Quarters className="h-7 w-7 animate-spin" />
+              <AiOutlineLoading3Quarters className="h-6 w-6 animate-spin" />
             ) : (
-              "Generate Trip Itinerary"
+              "Generate Your Dream Trip"
             )}
           </Button>
         </div>

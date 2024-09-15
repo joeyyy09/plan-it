@@ -18,25 +18,25 @@ const ViewTrip = () => {
   const router = useRouter();
   const authToken = authState.token;
 
+  // Fetch itinerary data based on tripId
   const fetchItineraryData = useCallback(async () => {
     if (!tripId) return;
     try {
-      const response = await api.get(`${baseURL}/api/itinerary/v2/${tripId}`);
-      setItinerary(response.data.data);
+      const { data } = await api.get(`${baseURL}/api/itinerary/v2/${tripId}`);
+      setItinerary(data.data);
     } catch (error) {
       console.error("Error fetching itinerary data:", error);
     }
   }, [tripId]);
 
+  // Fetch place photo based on itinerary destination
   const fetchPlacePhoto = useCallback(async () => {
     if (!itinerary?.destination) return;
     try {
-      const data = { textQuery: itinerary.destination };
-      const response = await PlaceDetails(data);
-      const photoName = response.data.places[0]?.photos[3]?.name;
+      const { data } = await PlaceDetails({ textQuery: itinerary.destination });
+      const photoName = data.places[0]?.photos[3]?.name;
       if (photoName) {
-        const photoUrl = PHOTO_REF_URL.replace("{NAME}", photoName);
-        setPhoto(photoUrl);
+        setPhoto(PHOTO_REF_URL.replace("{NAME}", photoName));
       }
     } catch (error) {
       console.error("Error fetching place photo:", error);
@@ -54,14 +54,18 @@ const ViewTrip = () => {
   }, [itinerary, fetchPlacePhoto]);
 
   return (
-    <div className="md:p-6 p-1 px-0 md:px-20 lg:px-44">
-      {itinerary && (
-        <>
-          <InfoSection itinerary={itinerary} />
-          <HotelInfo itinerary={itinerary} />
-          <Places itinerary={itinerary} />
-        </>
-      )}
+    <div className="min-h-screen bg-black text-white p-6">
+      <div className="max-w-4xl mx-auto">
+        {itinerary ? (
+          <>
+            <InfoSection itinerary={itinerary} />
+            <HotelInfo itinerary={itinerary} />
+            <Places itinerary={itinerary} />
+          </>
+        ) : (
+          <div className="text-center text-gray-400">Loading trip details...</div>
+        )}
+      </div>
     </div>
   );
 };

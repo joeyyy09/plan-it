@@ -33,19 +33,21 @@ const Page = () => {
   }, [authToken, router]);
 
   return (
-    <div className="md:p-0 md:max-w-[60%] w-full mx-auto mt-10">
-      <h2 className="font-bold text-2xl md:text-3xl lg:text-4xl">My Trips</h2>
-      {itinerary.length > 0 ? (
-        <div className="grid grid-cols-1 mt-10 md:grid-cols-3 gap-5">
-          {itinerary.map((trip) => (
-            <div key={trip.id}>
-              <UserTrip trip={trip} />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="pt-20">No trips generated yet!</div>
-      )}
+    <div className="min-h-screen bg-black text-white p-6">
+      <div className="max-w-4xl mx-auto mt-10">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">My Trips</h2>
+        {itinerary.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {itinerary.map((trip) => (
+              <div key={trip.id} className="bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700">
+                <UserTrip trip={trip} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center text-gray-400 mt-20">No trips generated yet!</div>
+        )}
+      </div>
     </div>
   );
 };
