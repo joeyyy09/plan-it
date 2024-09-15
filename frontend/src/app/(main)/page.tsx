@@ -148,7 +148,7 @@ const Page = () => {
         <div className="container px-4 md:px-6 mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              &copy; 2024 VoyageCraft. All rights reserved.
+              &copy; 2024 PlanIT. All rights reserved.
             </p>
             <nav className="flex gap-4">
               <Link
