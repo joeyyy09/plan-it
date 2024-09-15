@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/src/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/src/components/ui/sheet";
 import { useAuth } from "@/src/context/Auth";
@@ -56,11 +54,9 @@ export const Navbar = () => {
             <Link href="/create-trip" className="hover:text-gray-300 transition-colors text-lg font-medium">
               Create Trip
             </Link>
-            {authState.token && (
-              <Link href="/my-trips" className="hover:text-gray-300 transition-colors text-lg font-medium">
-                My Trips
-              </Link>
-            )}
+            <Link href="/my-trips" className="hover:text-gray-300 transition-colors text-lg font-medium">
+              My Trips
+            </Link>
           </div>
         </div>
         <div className="flex items-center space-x-4">
@@ -128,6 +124,14 @@ export const Navbar = () => {
                 </svg>
                 <p className="font-semibold text-xl">PlanIT</p>
               </div>
+              <div className="space-y-4">
+                <Button variant="ghost" className="w-full justify-start" asChild>
+                  <Link href="/create-trip">Create Trip</Link>
+                </Button>
+                <Button variant="ghost" className="w-full justify-start" asChild>
+                  <Link href="/my-trips">My Trips</Link>
+                </Button>
+              </div>
               <div className="mt-auto">
                 {authState.token ? (
                   <div className="border-t border-gray-700 pt-4">
@@ -143,10 +147,10 @@ export const Navbar = () => {
                 ) : (
                   <div className="space-y-2">
                     <Button variant="outline" className="w-full text-white border-white hover:bg-gray-800" asChild>
-                      <Link href="/create-trip">Create Trip</Link>
+                      <Link href="/login">Login</Link>
                     </Button>
                     <Button className="w-full bg-white text-black hover:bg-gray-200" asChild>
-                      <Link href="/my-trips">My Trips</Link>
+                      <Link href="/signup">Sign Up</Link>
                     </Button>
                   </div>
                 )}
