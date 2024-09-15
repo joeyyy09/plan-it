@@ -12,7 +12,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <AuthProvider>
       <Navbar />
-      <main className="min-h-screen p-4 sm:p-6 md:p-10 lg:p-20 bg-gray-800">
+      <main className="min-h-screen pt-16 pb-4 sm:pt-20 sm:pb-6 md:pt-24 md:pb-10 lg:pt-32 lg:pb-20 bg-gray-800 px-4 sm:px-6 md:px-10 lg:px-20">
         {children}
       </main>
     </AuthProvider>
