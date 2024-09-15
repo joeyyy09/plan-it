@@ -1,9 +1,9 @@
 "use client";
 
 import api, { baseURL } from "@/src/api/api";
-import HotelInfo from "@/src/components/view-trip/HotelInfo";
-import InfoSection from "@/src/components/view-trip/InfoSection";
-import Places from "@/src/components/view-trip/Places";
+import HotelInfo from "@/src/components/ui/HotelInfo";
+import InfoSection from "@/src/components/ui/InfoSection";
+import Places from "@/src/components/ui/Places";
 import { useAuth } from "@/src/context/Auth";
 import { PHOTO_REF_URL, PlaceDetails } from "@/src/service/GlobalAPI";
 import { TravelItinerary } from "@/models";
