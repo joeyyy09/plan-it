@@ -1,7 +1,7 @@
 import { Toaster } from "sonner";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { AuthProvider } from "@/src/context/Auth";
+import { AuthProvider } from  "@/src/app/(main)/AuthContext";
 import "./globals.css";
 
 // Initialize Poppins font with specified weights

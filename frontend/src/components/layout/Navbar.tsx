@@ -1,6 +1,6 @@
 import { Button } from "@/src/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/src/components/ui/sheet";
-import { useAuth } from "@/src/context/Auth";
+import { useAuth } from  "@/src/app/(main)/AuthContext";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

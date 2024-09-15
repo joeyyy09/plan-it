@@ -5,7 +5,7 @@ import TravelImage from "@/public/image1.png";
 import { PHOTO_REF_URL, PlaceDetails } from "@/src/service/GlobalAPI";
 import { useRouter } from "next/navigation";
 import { IoIosSend } from "react-icons/io";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "./skeleton";
 
 const UserTrip = ({ trip }: { trip: TravelItinerary }) => {
   const [photo, setPhoto] = useState("");

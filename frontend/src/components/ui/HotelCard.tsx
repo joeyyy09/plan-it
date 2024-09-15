@@ -5,12 +5,12 @@ import { HotelDetails } from "@/models";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import TravelImage from "@/public/image1.png";
-import { Button } from "../ui/button";
+import { Button } from "./button";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import Link from "next/link";
 import { PHOTO_REF_URL, PlaceDetails } from "@/src/service/GlobalAPI";
 import { useRouter } from "next/navigation";
-import { Skeleton } from "../ui/skeleton"; 
+import { Skeleton } from "./skeleton"; 
 
 const HotelCard = ({ hotel }: { hotel: HotelDetails }) => {
   const [photo, setPhoto] = useState("");

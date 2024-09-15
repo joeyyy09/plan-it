@@ -1,7 +1,7 @@
 "use client";
 
 import { Navbar } from "@/src/components/layout/Navbar";
-import { AuthProvider } from "@/src/context/Auth";
+import { AuthProvider } from  "@/src/app/(main)/AuthContext";
 import React from "react";
 
 interface MainLayoutProps {

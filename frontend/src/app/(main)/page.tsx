@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
-import { useAuth } from "@/src/context/Auth";
+import { useAuth } from "@/src/app/(main)/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 import api, { baseURL } from "@/src/api/api";

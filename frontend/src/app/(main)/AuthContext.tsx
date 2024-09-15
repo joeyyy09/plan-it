@@ -7,7 +7,7 @@ import {
   createContext,
   ReactNode,
 } from "react";
-import { AuthContextType, AuthToken } from "@/models"; // Adjust the import to your types
+import { AuthContextType, AuthToken } from "@/models";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 const { Provider } = AuthContext;

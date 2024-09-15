@@ -4,10 +4,10 @@ import { TravelItinerary } from "@/models";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import TravelImage from "@/public/image1.png";
-import { Button } from "../ui/button";
+import { Button } from "./button";
 import { IoIosSend } from "react-icons/io";
 import { PHOTO_REF_URL, PlaceDetails } from "@/src/service/GlobalAPI";
-import { Skeleton } from "../ui/skeleton"; 
+import { Skeleton } from "./skeleton"; 
 
 const InfoSection = ({ itinerary }: { itinerary: TravelItinerary }) => {
   const [photo, setPhoto] = useState<string | null>(null);

@@ -3,7 +3,7 @@
 import api, { baseURL } from "../../../api/api";
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
-import { useAuth } from "../../../context/Auth";
+import { useAuth } from "../AuthContext";
 import { chatSession } from "../../../service/AIModal";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
