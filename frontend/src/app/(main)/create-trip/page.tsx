@@ -3,7 +3,7 @@
 import api, { baseURL } from "../../../api/api";
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../../../context/AuthContext";
 import { chatSession } from "../../../service/AIModal";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -12,101 +12,52 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { toast } from "sonner";
 import { FaMapMarkerAlt, FaCalendarAlt, FaWallet, FaUsers } from "react-icons/fa";
 
-const TravelersList = [
+const TravelersList=[
     {
-        id: 1,
-        title: "Adventure Seeker",
-        desc: "For those who crave excitement and exploration, perfect for solo expeditions or intimate groups.",
-        people: '1 to 2'
+        id:1,
+        title:"Solo",
+        desc:"You are the only person traveling",
+        people:'1'
     },
     {
-        id: 2,
-        title: "Couple Getaway",
-        desc: "Designed for romantic escapes, with experiences and accommodations that cater to couples.",
-        people: '2'
+        id:2,
+        title:"Duo",
+        desc:"There's two of you traveling",
+        people:'2'
     },
     {
-        id: 3,
-        title: "Family Expedition",
-        desc: "Crafted for family vacations, offering activities and accommodations suitable for a range of family sizes.",
-        people: '3 to 5'
+        id:3,
+        title:"Family",
+        desc:"Family trip",
+        people:'4 to 6 people'
     },
     {
-        id: 4,
-        title: "Group Escapade",
-        desc: "Ideal for larger groups, whether it’s friends, colleagues, or extended family, focusing on shared experiences and group dynamics.",
-        people: '6 or more'
+        id:4,
+        title:"Friends",
+        desc:"Friends trip",
+        people:'6 to 10 people'
     },
-    {
-        id: 5,
-        title: "Solo Traveler",
-        desc: "A journey tailored for individuals seeking self-discovery and personal growth, with flexible options for solo exploration.",
-        people: '1'
-    },
-    {
-        id: 6,
-        title: "Extended Family",
-        desc: "Perfect for large family gatherings, providing accommodations and activities for more extensive family units.",
-        people: '7 to 12'
-    },
-    {
-        id: 7,
-        title: "Adventure Squad",
-        desc: "For groups of friends or colleagues looking for thrill-seeking activities and memorable experiences.",
-        people: '4 to 8'
-    }
-];
-
+]
 
 const BudgetList = [
     {
-        id: 1,
-        title: "Economical",
-        desc: "Enjoy your trip without breaking the bank, with smart and cost-effective choices."
+        id:1,
+        title: "Cheap",
+        desc: "Stays conscious of costs"
     },
     {
-        id: 2,
-        title: "Comfort",
-        desc: "A balanced option offering great value, ensuring comfort and quality without excessive spending."
+        id:2,
+        title: "Moderate",
+        desc: "Keep cost on the average side"
     },
     {
-        id: 3,
-        title: "Premium",
-        desc: "Indulge in luxury with top-notch experiences and accommodations, where cost is no concern."
+        id:1,
+        title: "Luxury",
+        desc: "No issue of costs"
     }
-];
+]
 
-
-const AI_PROMPT = `
-Create a comprehensive travel plan with the following specifications:
-
-**Destination**: {location}
-**Duration**: {noOfDays} days
-**Traveler Type**: {traveler} (e.g., Solo Explorer, Dynamic Duo, Family Fun, Friendship Fiesta)
-**Budget**: {budget} (e.g., Economical, Comfort, Premium)
-
-**Hotel Details**:
-- **Name**: The name of the hotel.
-- **Address**: The hotel's address.
-- **Price per Night**: Cost of staying per night.
-- **Image URL**: Link to an image of the hotel.
-- **Geo Coordinates**: Latitude and longitude.
-- **Rating**: Average rating of the hotel.
-- **Description**: Brief description of the hotel.
-
-**Daily Itinerary**:
-For each day of the trip, provide the following details:
-- **Place Name**: Name of the place.
-- **Description**: Brief overview of the place.
-- **Image URL**: Link to an image of the place.
-- **Geo Coordinates**: Latitude and longitude of the place.
-- **Ticket Pricing**: Cost of entry (if applicable).
-- **Rating**: Average rating of the place.
-- **Estimated Time to Travel**: Time needed to travel to the place.
-- **Optimal Visiting Time**: Best time to visit the place.
-
-Present the itinerary in a structured JSON format, detailing each day’s plans and including all relevant information.
-`;
+const AI_PROMPT="Generate Travel Plan for Location: {location}, for {noOfDays} days for {traveler} with a {budget} budget. Give me list of Hotel options with Hotel Name, Hotel Address, Price, Hotel Image Url, geo coordinates, rating, descriptions and suggest itinerary with place name, Place Details, Place Image Url, Geo Coordinates, ticket pricing, rating, time to travel each location for {noOfDays} days with each day plan with best time to visit in JSON Format"
 
 
 

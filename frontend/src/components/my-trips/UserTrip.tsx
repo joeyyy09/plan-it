@@ -1,11 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { TravelItinerary } from "@/models";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import TravelImage from "@/public/image1.png";
 import { PHOTO_REF_URL, PlaceDetails } from "@/src/service/GlobalAPI";
+import Link from "next/link";
+import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { IoIosSend } from "react-icons/io";
-import { Skeleton } from "./skeleton";
+import { Skeleton } from "../ui/skeleton"; // Assume you have a Skeleton component for loading
 
 const UserTrip = ({ trip }: { trip: TravelItinerary }) => {
   const [photo, setPhoto] = useState("");
@@ -15,7 +18,7 @@ const UserTrip = ({ trip }: { trip: TravelItinerary }) => {
   const getPlacePhoto = async () => {
     try {
       const data = {
-        textQuery: trip?.destination,
+        textQuery: trip?.location,
       };
       const response = await PlaceDetails(data);
       const photoUrl = PHOTO_REF_URL.replace(
@@ -35,36 +38,34 @@ const UserTrip = ({ trip }: { trip: TravelItinerary }) => {
   }, [trip]);
 
   return (
-    <div className="w-full bg-black rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
-      <div className="relative">
+    <div className="">
+      <div className="hover:scale-105 transition-all w-full space-y-4 bg-gray-100 p-4 rounded-lg">
         {loading ? (
-          <Skeleton className="h-48 w-full" />
+          <Skeleton className="h-[150px] md:h-[200px] w-full rounded-xl" />
         ) : (
           <Image
             src={photo ? photo : TravelImage}
             alt="Travel"
-            height={192}
-            width={384}
-            layout="responsive"
-            objectFit="cover"
-            className="w-full h-48 object-cover"
+            height={100}
+            width={1200}
+            quality={100}
+            layout="fixed"
+            className="h-[150px] md:h-[200px] w-full object-cover rounded-xl shadow-md"
             loading="lazy"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-      </div>
-      <div className="p-6">
-        <h2 className="font-semibold text-xl md:text-2xl text-white mb-2">{trip?.destination}</h2>
-        <p className="text-sm md:text-base text-gray-300 mb-4">
-          {trip?.duration} Days with {trip?.budget} Budget
-        </p>
-        <button
-          className="w-full bg-white text-gray-900 font-semibold py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-300 flex items-center justify-center"
-          onClick={() => router.push(`/view-trip/${trip.id}`)}
+        <div className="">
+          <h2 className="font-bold md:text-lg">{trip?.location}</h2>
+          <h2 className="text-xs md:text-sm text-gray-500">
+            {trip?.noOfDays} Days with {trip?.budget} Budget
+          </h2>
+        </div>
+        <Button
+          className="w-full"
+          onClick={() => router.push(`/view-trip/${trip._id}`)}
         >
-          <IoIosSend className="mr-2" />
-          View Trip
-        </button>
+          <IoIosSend className="h-7 w-7 p-1" />
+        </Button>
       </div>
     </div>
   );

@@ -5,12 +5,12 @@ import { HotelDetails } from "@/models";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import TravelImage from "@/public/image1.png";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import Link from "next/link";
 import { PHOTO_REF_URL, PlaceDetails } from "@/src/service/GlobalAPI";
 import { useRouter } from "next/navigation";
-import { Skeleton } from "./skeleton"; 
+import { Skeleton } from "../ui/skeleton"; // Assume you have a Skeleton component for loading
 
 const HotelCard = ({ hotel }: { hotel: HotelDetails }) => {
   const [photo, setPhoto] = useState("");

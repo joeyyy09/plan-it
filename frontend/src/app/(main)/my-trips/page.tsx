@@ -1,8 +1,8 @@
 "use client";
 
 import api, { baseURL } from "@/src/api/api";
-import UserTrip from "@/src/components/ui/UserTrip";
-import { useAuth } from "../AuthContext";
+import UserTrip from "@/src/components/my-trips/UserTrip";
+import { useAuth } from "../../../context/AuthContext";
 import { TravelItinerary } from "@/models";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";

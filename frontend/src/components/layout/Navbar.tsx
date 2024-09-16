@@ -1,6 +1,8 @@
+"use client";
+
 import { Button } from "@/src/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/src/components/ui/sheet";
-import { useAuth } from  "@/src/app/(main)/AuthContext";
+import { useAuth } from  "@/src/context/AuthContext";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
