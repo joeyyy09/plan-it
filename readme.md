@@ -13,14 +13,15 @@
 - [Environment Variables](#environment-variables)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ---
 
 ## **Links and Project Screenshots**
 
-- **Project Doc**: [https://docs.google.com/document/d/1k-BxbRbzpT7uYCUxzvuojzUCROlO2CPk5q0q0HwtHmg/edit?usp=sharing]([url](https://docs.google.com/document/d/1k-BxbRbzpT7uYCUxzvuojzUCROlO2CPk5q0q0HwtHmg/edit?usp=sharing))
-- 
+- **Project Doc**: ([Doc](https://docs.google.com/document/d/1k-BxbRbzpT7uYCUxzvuojzUCROlO2CPk5q0q0HwtHmg/edit?usp=sharing))
+- ![Landing Page](images/landing.png)
+- ![Create Trip](images/form.png)
+- ![View Trip](images/viewtrip.png)
 
 
 ---
